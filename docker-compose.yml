@@ -21,6 +21,6 @@ services:
     environment:
       - POSTGRES_USER=questionnaire_app
       - POSTGRES_PASSWORD=questionnaire_app
-      - POSTGRES_DB=questionnaire_app
+      - POSTGRES_DB=questionnaire
     ports:
        - '5432:5432'
