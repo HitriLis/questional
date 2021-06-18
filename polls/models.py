@@ -3,8 +3,8 @@ from django.db import models
 
 class Poll(models.Model):
     title = models.CharField("Название", max_length=150)
-    start_date = models.DateField("Дата старта", blank=True, null=True)
-    end_date = models.DateField("Дата окончания", blank=True, null=True)
+    start_date = models.DateField("Дата старта")
+    end_date = models.DateField("Дата окончания")
     description = models.TextField("Описание", max_length=500)
 
     class Meta:
@@ -15,9 +15,8 @@ class Poll(models.Model):
         return self.title
 
 
-
 class Question(models.Model):
-    poll = models.ForeignKey(Poll, verbose_name="Опрос", on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, related_name="questions", verbose_name="Опрос", on_delete=models.PROTECT)
     CHOICES = (
         ('text', 'Ответ текстом'),
         ('radio', 'Ответ с выбором одного варианта'),
@@ -33,12 +32,13 @@ class Question(models.Model):
 
 class Choices(models.Model):
     title = models.CharField("Название", max_length=150)
-    question = models.ForeignKey(Question, verbose_name="Poll", on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name="choices", verbose_name="Poll", on_delete=models.PROTECT)
 
 
 class Answer(models.Model):
     choices = models.ForeignKey(Choices, verbose_name="Poll", on_delete=models.CASCADE)
     question = models.ForeignKey(Question, verbose_name="Poll", on_delete=models.CASCADE)
+
 
 class User(models.Model):
     user_id = models.CharField("Номер заказа", max_length=255, unique=True)
