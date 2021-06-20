@@ -32,13 +32,16 @@ class Question(models.Model):
 
 class Choices(models.Model):
     title = models.CharField("Название", max_length=150)
-    question = models.ForeignKey(Question, related_name="choices", verbose_name="Poll", on_delete=models.PROTECT)
+    question = models.ForeignKey(Question, related_name="choices", verbose_name="Опрос", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.title
 
 
 class Answer(models.Model):
-    choices = models.ForeignKey(Choices, verbose_name="Poll", on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, verbose_name="Poll", on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, verbose_name="Опрос", on_delete=models.PROTECT)
+    choices = models.ManyToManyField(Choices, verbose_name="Вариант", blank=True)
+    question = models.ForeignKey(Question,  related_name="answer", verbose_name="Вопрос", on_delete=models.PROTECT)
+    user_id = models.IntegerField("Id пользователя")
+    text = models.CharField("Текст ответа", max_length=250, blank=True, null=True)
 
-
-class User(models.Model):
-    user_id = models.CharField("Номер заказа", max_length=255, unique=True)
