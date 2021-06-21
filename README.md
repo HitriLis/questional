@@ -7,7 +7,13 @@
 Запуск миграции.</p>
 <pre><code class="has-line-data" data-line-start="4" data-line-end="6" class="language-bash">
 python manage.py migrate
-<span class="hljs-operator">-d</span>
+</code></pre>
+
+<p class="has-line-data" data-line-start="0" data-line-end="2">
+Cоздать суперпользователя.</p>
+
+<pre><code class="has-line-data" data-line-start="4" data-line-end="6" class="language-bash">
+ python manage.py createsuperuser
 </code></pre>
 
 <p class="has-line-data" data-line-start="7" data-line-end="12"><strong>API</strong><br>
